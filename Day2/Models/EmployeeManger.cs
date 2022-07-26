@@ -2,11 +2,11 @@ namespace Task1.Models
 {
     public class EmployeeManager
     {
-         List<Emp> Employees = new List<Emp>();
+         List<Employee> list1; 
 
         public EmployeeManager()
         {
-            Employees = new List<Emp>()
+            list1 = new List<Empployee>()
             {
                 new Emp(){Empid = 1, Ename = "Krishav", Job = "IT Trainee", Salary= 10000, Deptno = 70},
                 new Emp(){Empid = 2, Ename = "Sharma", Job = "Manager", Salary= 8000, Deptno = 2},
@@ -14,28 +14,30 @@ namespace Task1.Models
             };
         }
 
-        public List<Emp> GetAllEmp()
+        public List<Employee> GetAllEmployee()
         {
-            return Employees;
+            return list1;
         }
-        public Emp GetEmpById(int id)
+        public Emp GetEmployeeById(int id)
         {
-            return Employees.Find(item => item.Empid == id);
+            Employee EmployeeObj = empList.SingleOrDefault(item => item.EId == id);
+            return EmployeeObj;
+            
         }
-        public void AddEmp(Emp obj)
+        public void AddEmployee(Employee obj)
         {
-            Employees.Add(obj);
+            list1.Add(obj);
         }
-        public void DeleteEmp(int id)
+        public void DeleteEmployee(int id)
         {
-            Emp obj = Employees.Find(item => item.Empid == id);
-            Employees.Remove(obj);
+            Empployee obj = list1.Find(item => item.Empid == id);
+            list1.Remove(obj);
         }
-        public void UpdateEmp(Emp updated_Obj)
+        public void UpdateEmp(Employee updated_Obj)
         {
-            Emp obj = Employees.Find(item => item.Empid == updated_Obj.Empid);
-            Employees.Remove(obj);
-            Employees.Add(updated_Obj);
+            Employee obj = list1.Find(item => item.Empid == updated_Obj.Empid);
+            list1.Remove(obj);
+            list1.Add(updated_Obj);
         }
 
 
