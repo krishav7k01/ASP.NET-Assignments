@@ -8,9 +8,9 @@ namespace Task1.Models
         {
             Employees = new List<Emp>()
             {
-                new Emp(){Empid = 1, Ename = "Tim", Job = "Manager", Salary= 10000, Deptno = 30},
-                new Emp(){Empid = 2, Ename = "Jim", Job = "Sales", Salary= 8000, Deptno = 20},
-                new Emp(){Empid = 3, Ename = "Tom", Job = "IT", Salary= 9000, Deptno = 10}
+                new Emp(){Empid = 1, Ename = "Krishav", Job = "IT Trainee", Salary= 10000, Deptno = 70},
+                new Emp(){Empid = 2, Ename = "Sharma", Job = "Manager", Salary= 8000, Deptno = 2},
+                new Emp(){Empid = 3, Ename = "Aditi", Job = "SAP", Salary= 9000, Deptno = 10}
             };
         }
 
