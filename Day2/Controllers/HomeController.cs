@@ -1,28 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using Task1.Models;
+using Microsoft.AspNetCore.Mvc;
+using WebApplication3.Models;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Task1.Controllers
+namespace WebApplication3.Controllers
 {
-    public class HomeController : Controller
+    public class EmployeeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public EmployeeManager context = new EmployeeManager();
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
+        EmployeeManager manager = new EmployeeManager();
         public IActionResult Index()
         {
-            return View(context.GetAllEmp());
+            
+            return View(manager.GetAllEmployee());
         }
-
-        public IActionResult Privacy()
+        public IActionResult EmployeeDetails(int id)
         {
-            return View();
+            
+            return View(manager.GetSingleEmployee(id));
         }
 
         [HttpGet]
@@ -32,72 +26,46 @@ namespace Task1.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Emp obj)
+        public IActionResult Create(Employee obj)
         {
-            if (ModelState.IsValid == true)
+            if (ModelState.IsValid)
             {
-                context.AddEmp(obj);
+                manager.AddEmployee(obj);
                 return RedirectToAction("Index");
-
+                //return View("Index", manager.GetAllEmployee());
             }
             else
             {
-
-                ViewBag.RequestType = Request.Method;
-                ViewBag.ErrorMessage = "Invalid data";
                 return View();
             }
-        }
-
-        public IActionResult Details(int id)
-        {
-            Emp obj = context.GetEmpById(id);
-            return View(obj);
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Emp obj = context.GetEmpById(id);
-            return View(obj);
+            return View(manager.GetSingleEmployee(id));
         }
 
         [HttpPost]
-        public IActionResult Edit(Emp obj)
+        public IActionResult Edit(Employee newEmp)
         {
-            if (ModelState.IsValid == true)
-            {
-                context.UpdateEmp(obj);
-                return RedirectToAction("Index");
-
-            }
-            else
-            {
-
-                ViewBag.RequestType = Request.Method;
-                ViewBag.ErrorMessage = "Invalid data";
-                return View();
-            }
+            manager.UpdateEmployee(newEmp);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            return View(context.GetEmpById(id));
+            return View(manager.GetSingleEmployee(id));
         }
 
         [HttpPost]
         [ActionName("Delete")]
-        public IActionResult Delete_Confirmation(int id)
+        public IActionResult DeleteConfirm(int id)
         {
-            context.DeleteEmp(id);
-            return RedirectToAction("index");
+            manager.DeleteEmployee(id);
+            return RedirectToAction("Index");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
